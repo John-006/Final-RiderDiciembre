@@ -13,7 +13,7 @@
         <h1>🛒 Inventario de Supermercado</h1>
         
         <div class="form-group">
-            <h3>➕ Agregar Nuevo Producto</h3>
+            <h3>Nuevo Producto</h3>
             <input type="text" id="name-input" placeholder="Nombre del Producto" required>
             <input type="number" id="price-input" placeholder="Precio ($)" step="0.01" min="0" required>
             <input type="number" id="stock-input" placeholder="Cantidad Stock" min="0" required>
@@ -21,7 +21,7 @@
         </div>
 
         <div class="form-group">
-            <h3>🌐 Importar Productos desde JSON</h3>
+            <h3>Importar desde JSON</h3>
             <input type="url" id="json-url-input" placeholder="URL del JSON de productos" required>
             <button id="import-json-btn" class="btn-primary">Importar Productos</button>
             <p id="import-message" style="margin-top: 10px; font-weight: bold;"></p>
@@ -52,7 +52,7 @@
         </div>
 
         <div id="cart-section" class="form-group">
-            <h3>🛒 Tu Carrito de Compras (<span id="cart-count">0</span> productos)</h3>
+            <h3>Tu Carrito de Compras (<span id="cart-count">0</span> productos)</h3>
             <div id="cart-items">
                 <p class="no-data" id="cart-empty-message">El carrito está vacío.</p>
             </div>

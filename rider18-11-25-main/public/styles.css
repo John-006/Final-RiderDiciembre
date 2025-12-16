@@ -1,9 +1,3 @@
-/*
-====================================
-  ESTILOS GLOBALES & MODO OSCURO
-====================================
-*/
-
 :root {
     /* Variables para Modo Claro */
     --color-bg-light: #f4f7f6;
@@ -18,7 +12,6 @@
     --color-accent-rgb: 0, 123, 255;
 }
 
-/* Modo Oscuro: Usamos una clase en el body para activar */
 body.dark-mode {
     --color-bg-light: #1c2229; 
     --color-bg-card-light: #2b3542; 
@@ -69,12 +62,6 @@ h1 {
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 
-
-/*
-====================================
-  FORMULARIOS Y SECCIONES
-====================================
-*/
 .form-group, #edit-section {
     background-color: var(--color-bg-card-light);
     padding: 25px;
@@ -100,13 +87,6 @@ input:focus {
     outline: none;
 }
 
-
-/*
-====================================
-  BOTONES (Animaciones y Colores)
-====================================
-*/
-
 button {
     padding: 10px 15px;
     border: none;
@@ -124,14 +104,11 @@ button:hover {
     transform: translateY(-1px);
 }
 
-/* Colores Específicos */
 .btn-success { background: var(--color-success); }
 .btn-primary { background: var(--color-accent); }
 .btn-cancel { background: #6c757d; }
 .btn-cancel:hover { background: #5a6268; }
 
-
-/* Botones de Acción en la Tabla */
 .add-cart-btn {
     background: var(--color-cart); 
 }
@@ -142,12 +119,6 @@ button:hover {
     background: var(--color-delete);
 }
 
-
-/*
-====================================
-  TABLA
-====================================
-*/
 table {
     width: 100%;
     border-collapse: collapse;
@@ -182,10 +153,6 @@ table tbody tr:hover {
     font-style: italic;
     color: #888;
 }
-
-/* ====================================
-  ESTILOS DEL CARRITO
-==================================== */
 
 #cart-items {
     padding: 10px;

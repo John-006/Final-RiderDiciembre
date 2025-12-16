@@ -1,6 +1,5 @@
 import { executeQuery } from '../services/dbService.js';
 
-// Obtener todos los productos
 export const getProducts = async (req, res, next) => {
   try {
     const products = await executeQuery(`SELECT * FROM products`);
@@ -24,7 +23,6 @@ export const getProducts = async (req, res, next) => {
   }
 };
 
-// Buscar producto por ID
 export const getProductById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -48,7 +46,6 @@ export const getProductById = async (req, res, next) => {
   }
 };
 
-// Buscar productos por nombre
 export const searchProducts = async (req, res, next) => {
   try {
     const { q } = req.query;
@@ -77,7 +74,6 @@ export const searchProducts = async (req, res, next) => {
   }
 };
 
-// Crear nuevo producto
 export const createProduct = async (req, res, next) => {
   try {
     const { nombre, precio, stock } = req.body;
@@ -111,7 +107,6 @@ export const createProduct = async (req, res, next) => {
   }
 };
 
-// Actualizar producto
 export const updateProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -148,7 +143,6 @@ export const updateProduct = async (req, res, next) => {
   }
 };
 
-// Eliminar producto
 export const deleteProduct = async (req, res, next) => {
   try {
     const { id } = req.params;

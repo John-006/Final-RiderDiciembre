@@ -1,6 +1,3 @@
-// ===============================================
-// INICIALIZACIÓN Y CARGA DE DATOS
-// ===============================================
 let cart = [];
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -11,9 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => loadHTMLTable(data['data']));
 });
 
-// ===============================================
-// 1. AGREGAR PRODUCTO (CREATE)
-// ===============================================
 const addBtn = document.querySelector('#add-btn');
 
 addBtn.onclick = function () {
@@ -37,10 +31,6 @@ addBtn.onclick = function () {
         alert("Por favor llena todos los campos del producto.");
     }
 }
-
-// ===============================================
-// 2. IMPORTAR JSON EXTERNO
-// ===============================================
 
 const importJsonBtn = document.querySelector('#import-json-btn');
 const jsonUrlInput = document.querySelector('#json-url-input');
@@ -81,10 +71,6 @@ importJsonBtn.onclick = function() {
 };
 
 
-// ===============================================
-// 3. MANEJO DE LA TABLA (EDITAR/BORRAR/CARRITO)
-// ===============================================
-
 document.querySelector('table tbody').addEventListener('click', function(event) {
     const id = event.target.dataset.id;
     const name = event.target.dataset.name;
@@ -116,9 +102,6 @@ function handleEdit(id) {
     section.scrollIntoView({behavior: "smooth"});
 }
 
-// ===============================================
-// 4. GUARDAR EDICIÓN (UPDATE)
-// ===============================================
 const updateBtn = document.querySelector('#update-btn');
 
 updateBtn.onclick = function() {
@@ -138,10 +121,6 @@ updateBtn.onclick = function() {
     });
 }
 
-
-// ===============================================
-// 5. RENDERIZAR TABLA (READ)
-// ===============================================
 function loadHTMLTable(data) {
     const table = document.querySelector('table tbody');
     let tableHtml = "";
@@ -173,10 +152,6 @@ function loadHTMLTable(data) {
 }
 
 
-// ===============================================
-// 6. LÓGICA DEL CARRITO (LOCAL STORAGE)
-// ===============================================
-
 function loadCartFromLocalStorage() {
     const savedCart = localStorage.getItem('supermarket_cart');
     if (savedCart) {
@@ -200,7 +175,6 @@ function addToCart(id, name, price) {
 
     saveCartToLocalStorage();
     renderCart();
-    // alert(`✅ "${name}" agregado al carrito.`); // Opcional, ya se ve en el carrito
 }
 
 function renderCart() {
@@ -250,7 +224,6 @@ function removeFromCart(index) {
     renderCart();
 }
 
-// Event listener para eliminar individual del carrito
 document.addEventListener('click', function(event) {
     if (event.target.classList.contains('remove-cart-btn')) {
         const index = event.target.dataset.index;
@@ -258,7 +231,6 @@ document.addEventListener('click', function(event) {
     }
 });
 
-// Vaciar Carrito
 document.querySelector('#clear-cart-btn').onclick = function() {
     if (confirm('¿Estás seguro de que quieres vaciar el carrito?')) {
         cart = [];
@@ -267,11 +239,10 @@ document.querySelector('#clear-cart-btn').onclick = function() {
     }
 };
 
-// Simular Finalizar Compra
+
 document.querySelector('#checkout-btn').onclick = function() {
     alert(`Gracias por tu compra. Total a pagar: $${document.querySelector('#cart-total').textContent}`);
     cart = [];
     saveCartToLocalStorage();
     renderCart();
-    // Aquí se descontaría el stock en una aplicación real.
 };

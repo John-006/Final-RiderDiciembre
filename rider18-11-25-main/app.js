@@ -2,15 +2,13 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const DbService = require('./services/dbService');
-const fetch = require('node-fetch').default; // Necesario para la importación JSON
+const fetch = require('node-fetch').default;
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static('public')); // Carga el HTML/CSS/JS
+app.use(express.static('public'));
 
-// RUTAS API
-// Insertar (CREATE)
 app.post('/insert', (request, response) => {
     const { name, price, stock } = request.body;
     const db = new DbService();
@@ -19,7 +17,6 @@ app.post('/insert', (request, response) => {
     .catch(err => console.log(err));
 });
 
-// Leer (READ)
 app.get('/getAll', (request, response) => {
     const db = new DbService();
     db.getAllData()
@@ -27,7 +24,6 @@ app.get('/getAll', (request, response) => {
     .catch(err => console.log(err));
 });
 
-// Actualizar (UPDATE)
 app.patch('/update', (request, response) => {
     const { id, name, price, stock } = request.body;
     const db = new DbService();
@@ -36,7 +32,6 @@ app.patch('/update', (request, response) => {
     .catch(err => console.log(err));
 });
 
-// Eliminar (DELETE)
 app.delete('/delete/:id', (request, response) => {
     const { id } = request.params;
     const db = new DbService();
@@ -45,7 +40,6 @@ app.delete('/delete/:id', (request, response) => {
     .catch(err => console.log(err));
 });
 
-// NUEVA RUTA: Importar JSON desde una URL
 app.post('/import-json', async (request, response) => {
     const { url } = request.body;
     const db = new DbService();
