@@ -1,0 +1,62 @@
+[
+    {
+    "id": 101,
+    "name": "Arroz Grano Largo",
+    "price": 2.15,
+    "stock": 180
+    },
+    {
+    "id": 102,
+    "name": "Aceite de Oliva Extra Virgen",
+    "price": 12.50,
+    "stock": 45
+    },
+    {
+    "id": 103,
+    "name": "Atún enlatado (Agua)",
+    "price": 1.75,
+    "stock": 250
+    },
+    {
+    "id": 104,
+    "name": "Café Molido",
+    "price": 6.99,
+    "stock": 90
+    },
+    {
+    "id": 105,
+    "name": "Azúcar Blanca (Kg)",
+    "price": 0.85,
+    "stock": 310
+    },
+    {
+    "id": 106,
+    "name": "Detergente Líquido",
+    "price": 8.40,
+    "stock": 65
+    },
+    {
+    "id": 107,
+    "name": "Pasta Dental",
+    "price": 3.20,
+    "stock": 115
+    },
+    {
+    "id": 108,
+    "name": "Yogurt Griego Natural",
+    "price": 1.90,
+    "stock": 140
+    },
+    {
+    "id": 109,
+    "name": "Papas Fritas Clásicas",
+    "price": 2.80,
+    "stock": 160
+    },
+    {
+    "id": 110,
+    "name": "Refresco Cola (2L)",
+    "price": 1.50,
+    "stock": 220
+    }
+]
