@@ -1,0 +1,208 @@
+/*
+====================================
+  ESTILOS GLOBALES & MODO OSCURO
+====================================
+*/
+
+:root {
+    /* Variables para Modo Claro */
+    --color-bg-light: #f4f7f6;
+    --color-bg-card-light: #ffffff;
+    --color-text-light: #333;
+    --color-border-light: #e0e0e0;
+    --color-accent: #007bff; /* Azul primario */
+    --color-success: #28a745; /* Verde para Agregar */
+    --color-delete: #dc3545; /* Rojo para Borrar */
+    --color-edit: #ffc107; /* Amarillo para Editar */
+    --color-cart: #17a2b8; /* Turquesa para Carrito */
+    --color-accent-rgb: 0, 123, 255;
+}
+
+/* Modo Oscuro: Usamos una clase en el body para activar */
+body.dark-mode {
+    --color-bg-light: #1c2229; 
+    --color-bg-card-light: #2b3542; 
+    --color-text-light: #e0e0e0; 
+    --color-border-light: #445566; 
+    --color-accent: #6aa8fc; 
+    --color-accent-rgb: 106, 168, 252;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--color-bg-light);
+    color: var(--color-text-light);
+    transition: background-color 0.4s, color 0.4s;
+    padding: 30px;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1 {
+    color: var(--color-accent);
+    border-bottom: 2px solid var(--color-border-light);
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+
+#mode-toggle {
+    position: fixed;
+    z-index: 1000;
+    top: 20px;
+    right: 20px;
+    background: var(--color-bg-card-light);
+    color: var(--color-text-light);
+    border: 1px solid var(--color-border-light);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+#mode-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+
+/*
+====================================
+  FORMULARIOS Y SECCIONES
+====================================
+*/
+.form-group, #edit-section {
+    background-color: var(--color-bg-card-light);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+    border: 1px solid var(--color-border-light);
+    transition: box-shadow 0.3s;
+}
+
+input[type="text"], input[type="number"], input[type="url"] {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid var(--color-border-light);
+    border-radius: 6px;
+    background-color: var(--color-bg-light);
+    color: var(--color-text-light);
+    transition: border-color 0.3s, background-color 0.3s;
+    width: 250px; 
+}
+input:focus {
+    border-color: var(--color-accent);
+    outline: none;
+}
+
+
+/*
+====================================
+  BOTONES (Animaciones y Colores)
+====================================
+*/
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    margin-right: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+}
+
+/* Colores Específicos */
+.btn-success { background: var(--color-success); }
+.btn-primary { background: var(--color-accent); }
+.btn-cancel { background: #6c757d; }
+.btn-cancel:hover { background: #5a6268; }
+
+
+/* Botones de Acción en la Tabla */
+.add-cart-btn {
+    background: var(--color-cart); 
+}
+.edit-row-btn {
+    background: var(--color-edit);
+}
+.delete-row-btn {
+    background: var(--color-delete);
+}
+
+
+/*
+====================================
+  TABLA
+====================================
+*/
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+    background-color: var(--color-bg-card-light);
+    border-radius: 12px;
+    overflow: hidden; 
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+th {
+    background-color: var(--color-accent);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+table tbody tr {
+    transition: background-color 0.3s ease;
+}
+table tbody tr:hover {
+    background-color: rgba(var(--color-accent-rgb), 0.1); 
+}
+.no-data {
+    text-align: center;
+    font-style: italic;
+    color: #888;
+}
+
+/* ====================================
+  ESTILOS DEL CARRITO
+==================================== */
+
+#cart-items {
+    padding: 10px;
+    background-color: var(--color-bg-light);
+    border-radius: 8px;
+    border: 1px solid var(--color-border-light);
+    min-height: 50px;
+}
+
+.cart-item {
+    padding: 5px 0;
+    border-bottom: 1px dotted var(--color-border-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color-text-light);
+}
+.cart-item:last-child {
+    border-bottom: none;
+}

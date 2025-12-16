@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Inventario - Supermercado CRUD</title>
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+    <button id="mode-toggle">☀️</button> 
+
+    <main>
+        <h1>🛒 Inventario de Supermercado</h1>
+        
+        <div class="form-group">
+            <h3>➕ Agregar Nuevo Producto</h3>
+            <input type="text" id="name-input" placeholder="Nombre del Producto" required>
+            <input type="number" id="price-input" placeholder="Precio ($)" step="0.01" min="0" required>
+            <input type="number" id="stock-input" placeholder="Cantidad Stock" min="0" required>
+            <button id="add-btn" class="btn-success">Agregar</button>
+        </div>
+
+        <div class="form-group">
+            <h3>🌐 Importar Productos desde JSON</h3>
+            <input type="url" id="json-url-input" placeholder="URL del JSON de productos" required>
+            <button id="import-json-btn" class="btn-primary">Importar Productos</button>
+            <p id="import-message" style="margin-top: 10px; font-weight: bold;"></p>
+        </div>
+
+        <table id="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Fecha Ingreso</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        
+        <div id="edit-section" hidden>
+            <h3>✏️ Editar Producto</h3>
+            <input type="hidden" id="update-id">
+            <input type="text" id="update-name" placeholder="Nuevo Nombre">
+            <input type="number" id="update-price" placeholder="Nuevo Precio" step="0.01" min="0">
+            <input type="number" id="update-stock" placeholder="Nuevo Stock" min="0">
+            <button id="update-btn" class="btn-primary">Guardar Cambios</button>
+            <button onclick="document.getElementById('edit-section').hidden = true" class="btn-cancel">Cancelar</button>
+        </div>
+
+        <div id="cart-section" class="form-group">
+            <h3>🛒 Tu Carrito de Compras (<span id="cart-count">0</span> productos)</h3>
+            <div id="cart-items">
+                <p class="no-data" id="cart-empty-message">El carrito está vacío.</p>
+            </div>
+            <div id="cart-summary" style="margin-top: 15px;">
+                <p>Total: **$<span id="cart-total">0.00</span>**</p>
+                <button id="checkout-btn" class="btn-primary" disabled>Finalizar Compra</button>
+                <button id="clear-cart-btn" class="btn-cancel" disabled>Vaciar Carrito</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleButton = document.getElementById('mode-toggle');
+            const body = document.body;
+            
+            const savedMode = localStorage.getItem('theme');
+            if (savedMode === 'dark') {
+                body.classList.add('dark-mode');
+                toggleButton.textContent = '🌙';
+            } else {
+                toggleButton.textContent = '☀️';
+            }
+
+            toggleButton.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                    toggleButton.textContent = '🌙';
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    toggleButton.textContent = '☀️';
+                }
+            });
+        });
+    </script>
+    <script src="JS/index.js"></script>
+</body>
+</html>
