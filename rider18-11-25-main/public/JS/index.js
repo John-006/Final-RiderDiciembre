@@ -26,7 +26,14 @@ addBtn.onclick = function () {
             body: JSON.stringify({ name: name, price: price, stock: stock })
         })
         .then(response => response.json())
-        .then(data => location.reload()); 
+        .then(data => {
+            if (data.success === false) {
+                 alert("Error al insertar producto: " + data.message);
+            } else {
+                 location.reload(); 
+            }
+        })
+        .catch(err => alert("Error de conexión con el servidor."));
     } else {
         alert("Por favor llena todos los campos del producto.");
     }
@@ -69,7 +76,6 @@ importJsonBtn.onclick = function() {
         importMessage.style.color = "red";
     });
 };
-
 
 document.querySelector('table tbody').addEventListener('click', function(event) {
     const id = event.target.dataset.id;
@@ -151,7 +157,6 @@ function loadHTMLTable(data) {
     table.innerHTML = tableHtml;
 }
 
-
 function loadCartFromLocalStorage() {
     const savedCart = localStorage.getItem('supermarket_cart');
     if (savedCart) {
@@ -181,7 +186,7 @@ function renderCart() {
     const cartItemsContainer = document.querySelector('#cart-items');
     const cartTotalSpan = document.querySelector('#cart-total');
     const cartCountSpan = document.querySelector('#cart-count');
-    const emptyMessage = document.querySelector('#cart-empty-message');
+    const emptyMessage = document.querySelector('#cart-empty-message'); // <-- Elemento de mensaje vacío
     const checkoutBtn = document.querySelector('#checkout-btn');
     const clearCartBtn = document.querySelector('#clear-cart-btn');
     
@@ -189,7 +194,7 @@ function renderCart() {
     let total = 0;
 
     if (cart.length === 0) {
-        emptyMessage.style.display = 'block';
+        if (emptyMessage) emptyMessage.style.display = 'block'; // Añadido check
         cartCountSpan.textContent = '0';
         checkoutBtn.disabled = true;
         clearCartBtn.disabled = true;
@@ -197,7 +202,7 @@ function renderCart() {
         return;
     }
     
-    emptyMessage.style.display = 'none';
+    if (emptyMessage) emptyMessage.style.display = 'none'; // Añadido check para evitar el error
     cartCountSpan.textContent = cart.length;
     checkoutBtn.disabled = false;
     clearCartBtn.disabled = false;
@@ -238,7 +243,6 @@ document.querySelector('#clear-cart-btn').onclick = function() {
         renderCart();
     }
 };
-
 
 document.querySelector('#checkout-btn').onclick = function() {
     alert(`Gracias por tu compra. Total a pagar: $${document.querySelector('#cart-total').textContent}`);

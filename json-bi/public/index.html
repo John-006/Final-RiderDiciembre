@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>JSON Bidireccional</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="app-container">
+        
+        <div class="panel izquierdo">
+            <h3 class="panel-titulo">1. Datos Almacenados (CRUD R)</h3>
+            <div id="lista-datos" class="lista-scroll">
+                </div>
+            
+            <button onclick="borrarDato()" class="btn-full btn-delete">
+                Borrar Dato Seleccionado (CRUD D)
+            </button>
+        </div>
+
+        <div class="panel central">
+            <h3 class="panel-titulo">2. Editor de Campo (CRUD U)</h3>
+
+            <div class="controles">
+                <label for="selector-clave">Campo a editar (existente):</label>
+                <select id="selector-clave" onchange="actualizarPreview()"></select>
+
+                <hr style="border-top: 1px solid #3c3c3c; margin: 15px 0;">
+
+                <label for="nueva-clave-input" style="color: var(--color-text-highlight);">Crear Nueva Clave (Anidada posible: ej. address.newfield):</label>
+                <input type="text" id="nueva-clave-input" placeholder="Opcional: Nombre de la nueva clave" oninput="actualizarPreview()">
+
+                <label for="nuevo-valor">Nuevo Valor (string):</label>
+                <input type="text" id="nuevo-valor" placeholder="Escribe el valor aquí..." oninput="actualizarPreview()">
+                
+                <button onclick="guardarCambios()" class="btn-full btn-update">
+                    Guardar CAMBIOS en Base de Datos
+                </button>
+            </div>
+            
+            <button onclick="toggleCrearSeccion()" class="btn-full btn-create-toggle">
+                + Abrir/Cerrar Creador de JSON (CRUD C)
+            </button>
+
+            <div id="crear-seccion" class="crear-seccion" style="display: none;">
+                <h4>Crear Nuevo Objeto (CRUD C)</h4>
+                <textarea id="json-crear" rows="6" placeholder='Pega tu JSON aquí. Ejemplo: {"name": "Test", "address": {"city": "City"}}'></textarea>
+                <button onclick="crearNuevoDato()" class="btn-full btn-create">
+                    Guardar Nuevo JSON
+                </button>
+            </div>
+        </div>
+
+        <div class="panel derecho">
+            <h3 class="panel-titulo">3. Comparador y Preview</h3>
+            
+            <div class="comparador-caja">
+                <h4 style="color: var(--color-original);">JSON Original (Seleccionado)</h4>
+                <textarea id="json-original" readonly></textarea>
+            </div>
+            
+            <div class="comparador-caja">
+                <h4 style="color: var(--color-preview);">Resultado (Preview del Cambio)</h4>
+                <textarea id="json-nuevo" readonly></textarea>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // Función auxiliar para el botón de creación
+        function toggleCrearSeccion() {
+            const seccion = document.getElementById('crear-seccion');
+            seccion.style.display = seccion.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>

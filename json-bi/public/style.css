@@ -1,0 +1,201 @@
+/* --- Variables y Reset --- */
+:root {
+    --color-bg-dark: #1e1e1e;
+    --color-bg-panel: #252526;
+    --color-text-light: #cccccc;
+    --color-text-highlight: #00bcd4; /* Azul Cian, buen contraste */
+    --color-border: #3c3c3c;
+    --color-input-bg: #333333;
+    --color-original: #f8941b; /* Naranja para Original */
+    --color-preview: #81c784; /* Verde suave para Preview */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-light);
+    margin: 0;
+    padding: 15px;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* --- Layout Principal (Flexbox) --- */
+#app-container {
+    display: flex;
+    gap: 15px;
+    height: 97vh; /* Ajuste para ocupar casi toda la altura visible */
+    box-sizing: border-box;
+}
+
+.panel {
+    background-color: var(--color-bg-panel);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+}
+
+.izquierdo {
+    flex: 0 0 25%; /* Fijo en 25% */
+}
+
+.central {
+    flex: 0 0 30%; /* Fijo en 30% */
+}
+
+.derecho {
+    flex: 1; /* Ocupa el espacio restante (aprox 45%) */
+}
+
+.panel-titulo {
+    color: var(--color-text-highlight);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+/* --- Lista de Datos (Panel Izquierdo) --- */
+.lista-scroll {
+    flex-grow: 1;
+    overflow-y: auto;
+    border: 1px solid var(--color-border);
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.item-json {
+    padding: 8px;
+    border-bottom: 1px solid var(--color-border);
+    cursor: pointer;
+    font-size: 11px;
+    font-family: monospace;
+    white-space: pre-wrap;
+    transition: background-color 0.1s;
+}
+.item-json:hover { 
+    background-color: #353535; 
+    border-left: 3px solid var(--color-text-highlight);
+    padding-left: 5px;
+}
+
+/* --- Controles y Formularios --- */
+
+label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    color: var(--color-text-light);
+}
+
+input[type="text"], select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-input-bg);
+    color: var(--color-text-light);
+    font-size: 14px;
+}
+
+/* --- Botones --- */
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+    color: #fff; /* Texto blanco en todos los botones */
+}
+
+.btn-full {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.btn-create-toggle {
+    background-color: #3c4043; /* Gris suave */
+    color: var(--color-text-light);
+}
+.btn-create-toggle:hover {
+    background-color: #4e5356;
+}
+
+.btn-create {
+    background-color: #1e88e5; /* Azul primario */
+}
+.btn-create:hover {
+    background-color: #1565c0;
+}
+
+.btn-update {
+    background-color: #43a047; /* Verde (Guardar Cambios) */
+    margin-top: 15px;
+}
+.btn-update:hover {
+    background-color: #388e3c;
+}
+
+.btn-delete {
+    background-color: #e53935; /* Rojo (Borrar) */
+}
+.btn-delete:hover {
+    background-color: #c62828;
+}
+
+/* --- Comparador (Panel Derecho) --- */
+
+.derecho h4 {
+    color: var(--color-text-light);
+    margin-top: 15px;
+    font-size: 1em;
+    font-weight: normal;
+}
+
+.derecho h4:first-child {
+    margin-top: 0;
+}
+
+.comparador-caja {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilo para las cajas de código */
+.derecho textarea {
+    flex-grow: 1;
+    height: auto; /* Dejamos que Flexbox maneje la altura */
+    min-height: 200px;
+    background: #000000; 
+    padding: 15px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    resize: none;
+    border: 1px solid var(--color-border);
+}
+
+#json-original {
+    color: var(--color-original); /* El Original usa color naranja */
+}
+#json-nuevo {
+    color: var(--color-preview); /* El Preview usa color verde */
+}
+
+.crear-seccion {
+    border: 1px dashed var(--color-text-highlight);
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.crear-seccion textarea {
+    min-height: 80px;
+}
