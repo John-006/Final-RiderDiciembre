@@ -1,83 +1,105 @@
 const express = require('express');
-const app = express();
 const cors = require('cors');
-const DbService = require('./services/dbService');
 const fetch = require('node-fetch').default;
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(express.static('public'));
+const DbService = require('./services/dbService');
+const dbInit = require('./services/dbInit');
 
-app.post('/insert', (request, response) => {
-    const { name, price, stock } = request.body;
-    const db = new DbService();
-    db.insertNewName(name, price, stock)
-    .then(data => response.json({ data: data }))
-    .catch(err => console.log(err));
-});
+const app = express();
 
-app.get('/getAll', (request, response) => {
-    const db = new DbService();
-    db.getAllData()
-    .then(data => response.json({data : data}))
-    .catch(err => console.log(err));
-});
+(async () => {
+  try {
+    // ⬅️ ESPERAMOS a que BD y tabla existan
+    await dbInit();
 
-app.patch('/update', (request, response) => {
-    const { id, name, price, stock } = request.body;
-    const db = new DbService();
-    db.updateNameById(id, name, price, stock)
-    .then(data => response.json({success : data}))
-    .catch(err => console.log(err));
-});
+    app.use(cors());
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: false }));
+    app.use(express.static('public'));
 
-app.delete('/delete/:id', (request, response) => {
-    const { id } = request.params;
-    const db = new DbService();
-    db.deleteRowById(id)
-    .then(data => response.json({success : data}))
-    .catch(err => console.log(err));
-});
+    // INSERT
+    app.post('/insert', async (req, res) => {
+      const { name, price, stock } = req.body;
+      const db = new DbService();
 
-app.post('/import-json', async (request, response) => {
-    const { url } = request.body;
-    const db = new DbService();
+      try {
+        const id = await db.insertNewName(name, price, stock);
+        res.json({ success: true, id });
+      } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+      }
+    });
 
-    if (!url) {
-        return response.status(400).json({ success: false, message: 'URL es requerida.' });
-    }
+    // GET ALL
+    app.get('/getAll', async (req, res) => {
+      const db = new DbService();
+      const data = await db.getAllData();
+      res.json({ data });
+    });
 
-    try {
+    // UPDATE
+    app.patch('/update', async (req, res) => {
+      const { id, name, price, stock } = req.body;
+      const db = new DbService();
+
+      try {
+        const ok = await db.updateNameById(id, name, price, stock);
+        res.json({ success: ok });
+      } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+      }
+    });
+
+    // DELETE
+    app.delete('/delete/:id', async (req, res) => {
+      const { id } = req.params;
+      const db = new DbService();
+
+      try {
+        const ok = await db.deleteRowById(id);
+        res.json({ success: ok });
+      } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+      }
+    });
+
+    // IMPORT JSON
+    app.post('/import-json', async (req, res) => {
+      const { url } = req.body;
+      const db = new DbService();
+
+      if (!url) {
+        return res.status(400).json({ success: false, message: 'URL es requerida' });
+      }
+
+      try {
         const fetchResponse = await fetch(url);
-        if (!fetchResponse.ok) {
-            throw new Error(`HTTP error! status: ${fetchResponse.status}`);
-        }
         const products = await fetchResponse.json();
 
         if (!Array.isArray(products)) {
-            return response.status(400).json({ success: false, message: 'La URL no devolvió un arreglo de productos.' });
+          return res.status(400).json({ success: false, message: 'JSON inválido' });
         }
 
-        let insertedCount = 0;
-        
-        for (const product of products) {
-            if (product.name && product.price && product.stock) {
-                await db.insertNewName(product.name, product.price, product.stock);
-                insertedCount++;
-            }
+        let count = 0;
+        for (const p of products) {
+          if (p.name && p.price && p.stock) {
+            await db.insertNewName(p.name, p.price, p.stock);
+            count++;
+          }
         }
 
-        response.json({ 
-            success: true, 
-            message: `Importación exitosa. Se insertaron ${insertedCount} productos.` 
-        });
+        res.json({ success: true, inserted: count });
+      } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+      }
+    });
 
-    } catch (error) {
-        console.error("Error al importar JSON:", error.message);
-        response.status(500).json({ success: false, message: 'Error en la importación: ' + error.message });
-    }
-});
+    app.listen(3000, () =>
+      console.log('Servidor corriendo en el puerto 3000')
+    );
 
-
-app.listen(3000, () => console.log('Servidor corriendo en el puerto 3000'));
+  } catch (fatalError) {
+    console.error("El servidor no pudo iniciar:", fatalError.message);
+    process.exit(1);
+  }
+})();
