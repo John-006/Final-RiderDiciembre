@@ -67,4 +67,4 @@ app.delete('/api/datos/:id', async (req, res) => {
     }
 });
 
-app.listen(3000, () => console.log('Servidor en puerto 3000'));
+app.listen(3000, () => console.log('Servidor en puerto 3000... dirijase a localhost:3000 en su navegador para continuar.'));
